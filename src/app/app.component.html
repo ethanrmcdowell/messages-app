@@ -1,4 +1,14 @@
-<h1 style="color: green; font-style: italic">HELLO</h1>
+<div>
+  <div>
+    <label for="userName">name:</label>
+    <input name="userName" type="text" />
+  </div>
+  <div>
+    <label for="userMessage">message:</label>
+    <input name="userMessage" type="text" />
+  </div>
+</div>
+
 <h5>The below message is fetched from the express backend</h5>
 <p *ngIf="message">
   {{ message.message }}
