@@ -1,6 +1,6 @@
 
 import { Component, OnInit } from '@angular/core';
-import { ApiService } from './api.service';
+import { DataService } from './api.service';
   
 @Component({
     selector: 'app-root',
@@ -8,12 +8,16 @@ import { ApiService } from './api.service';
     styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-    title = 'frontEnd';
-    message: any;
-    constructor(private apiService: ApiService) { };
-    ngOnInit() {
-        this.apiService.getMessage().subscribe(data => {
-            this.message = data;
-        });
-    }
+  data: any;
+
+  constructor(private dataService: DataService) {}
+
+  ngOnInit() {
+    this.dataService.getData()
+      .then(data => {
+        this.data = data;
+        console.log("this.data ->", this.data);
+      })
+      .catch(error => console.error('Error:', error));
+  }
 }

@@ -14,17 +14,12 @@ app.use((req, res, next) => {
   next();
 });
 
-// route for handling requests from the Angular client
-app.get("/api/message", (req, res) => {
-  res.json({ message: "WOWWW" });
-});
-
 const pool = mysql.createPool({
   host: "localhost", // MySQL host (usually localhost)
   port: 3306, // MySQL port (default is 3306)
   user: "root", // MySQL username
   password: process.env.MYSQL_PASSWORD, // MySQL password
-  database: "messages", // MySQL database name
+  database: "sys", // MySQL database name
 });
 
 const getConnection = () => {
@@ -39,21 +34,16 @@ const getConnection = () => {
   });
 };
 
-app.get("/users", async (req, res) => {
+// on init get messages
+app.get("/api/data", async (req, res) => {
   try {
     const connection = await getConnection();
 
-    // Execute a query
-    connection.query("SELECT * FROM users", (err, results) => {
-      connection.release(); // Release the connection
+    const results = await connection.promise().query("SELECT * FROM messages");
 
-      if (err) {
-        res.status(500).json({ error: err.message });
-        return;
-      }
+    connection.release();
 
-      res.json(results);
-    });
+    res.json(results[0]);
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
