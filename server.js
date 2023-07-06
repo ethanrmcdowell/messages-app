@@ -1,5 +1,6 @@
 const express = require("express");
 const mysql = require("mysql2");
+require("dotenv").config();
 
 const app = express();
 
@@ -22,7 +23,7 @@ const pool = mysql.createPool({
   host: "localhost", // MySQL host (usually localhost)
   port: 3306, // MySQL port (default is 3306)
   user: "root", // MySQL username
-  password: "rootroot", // MySQL password
+  password: process.env.MYSQL_PASSWORD, // MySQL password
   database: "messages", // MySQL database name
 });
 
