@@ -1,13 +1,13 @@
 <div>
   <div>
     <label for="userName">name:</label>
-    <input name="userName" type="text" />
+    <input name="userName" type="text" [(ngModel)]="name" />
   </div>
   <div>
     <label for="userMessage">message:</label>
-    <input name="userMessage" type="text" />
+    <input name="userMessage" type="text" [(ngModel)]="message" />
   </div>
   <div>
-    <button type="submit">Submit</button>
+    <button type="submit" (click)="submitMessage()">Submit</button>
   </div>
 </div>

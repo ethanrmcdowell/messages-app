@@ -1,8 +1,12 @@
 const express = require("express");
 const mysql = require("mysql2");
+const bodyParser = require("body-parser");
 require("dotenv").config();
 
 const app = express();
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 // handling CORS
 app.use((req, res, next) => {
@@ -45,6 +49,33 @@ app.get("/api/data", async (req, res) => {
 
     res.json(results[0]);
   } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// handle submitting new message
+app.post("/api/submit", async (req, res) => {
+  console.log("****REQ****");
+  console.log(req.body);
+  console.log("***********");
+  const name = req.body.name;
+  const message = req.body.message;
+
+  if (!name || !message) {
+    return res.status(400).json({ error: "Name and message are required" });
+  }
+
+  const sql = "INSERT INTO messages (name, message, status) VALUES (?, ?, 'U')";
+
+  try {
+    const connection = await getConnection();
+    await connection.promise().query(sql, [name, message]);
+
+    connection.release();
+
+    res.status(201).json({ success: true });
+  } catch (err) {
+    console.error("Error submitting message:", err);
     res.status(500).json({ error: err.message });
   }
 });

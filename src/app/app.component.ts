@@ -9,6 +9,8 @@ import { DataService } from './api.service';
 })
 export class AppComponent implements OnInit {
   data: any;
+  name: string = '';
+  message: string = '';
 
   constructor(private dataService: DataService) {}
 
@@ -19,5 +21,15 @@ export class AppComponent implements OnInit {
         console.log("this.data ->", this.data);
       })
       .catch(error => console.error('Error:', error));
+  }
+
+  submitMessage() {
+    this.dataService.submitMessage(this.name, this.message)
+      .then(() => {
+        console.log("Message submitted successfully!");
+      })
+      .catch(err => {
+        console.error("Error sumitting message:", err);
+      });
   }
 }
