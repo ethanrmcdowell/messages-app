@@ -1,13 +1,30 @@
 <div>
-  <div>
-    <label for="userName">name:</label>
-    <input name="userName" type="text" [(ngModel)]="name" />
-  </div>
-  <div>
-    <label for="userMessage">message:</label>
-    <input name="userMessage" type="text" [(ngModel)]="message" />
-  </div>
+  <table>
+    <tr>
+      <th>
+        <label for="userName">name:</label>
+      </th>
+      <th>
+        <input name="userName" type="text" [(ngModel)]="name" />
+      </th>
+    </tr>
+    <tr>
+      <th>
+        <label for="userMessage">message:</label>
+      </th>
+      <th>
+        <input name="userMessage" type="text" [(ngModel)]="message" />
+      </th>
+    </tr>
+  </table>
   <div>
     <button type="submit" (click)="submitMessage()">Submit</button>
+  </div>
+  <hr />
+  <div>
+    <div *ngFor="let item of data">
+      <!-- <p *ngIf="item.status === 'U'">{{ item.message }}</p> -->
+      <p *ngIf="item.status">{{ item.message }}</p>
+    </div>
   </div>
 </div>

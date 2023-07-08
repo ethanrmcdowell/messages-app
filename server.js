@@ -55,9 +55,6 @@ app.get("/api/data", async (req, res) => {
 
 // handle submitting new message
 app.post("/api/submit", async (req, res) => {
-  console.log("****REQ****");
-  console.log(req.body);
-  console.log("***********");
   const name = req.body.name;
   const message = req.body.message;
 
